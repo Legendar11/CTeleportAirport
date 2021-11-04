@@ -1,4 +1,6 @@
 using Airport.Api.Filters;
+using Airport.Api.GrpcServices;
+using AirportInfo.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +45,13 @@ namespace Airport.Api
             });
 
             services.AddRouting(options => { options.LowercaseUrls = true; });
+
+            services.AddGrpcClient<AirportInfoProtoService.AirportInfoProtoServiceClient>(options =>
+            {
+                var url = Configuration["GrpcSettings:AirportInfoUrl"];
+                options.Address = new Uri(url);
+            });
+            services.AddScoped<AirportInfoGrpcService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

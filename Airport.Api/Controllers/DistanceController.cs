@@ -1,5 +1,5 @@
-﻿using Airport.Api.DTO.Api.Distance;
-using GeoCoordinatePortable;
+﻿using Airport.Api.GrpcServices;
+using Airport.Api.Models.Distance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +13,13 @@ namespace Airport.Api.Controllers
     [ApiController]
     public class DistanceController : ControllerBase
     {
+        private readonly AirportInfoGrpcService _airportInfoGrpcService;
+
+        public DistanceController(AirportInfoGrpcService airportInfoGrpcService)
+        {
+            _airportInfoGrpcService = airportInfoGrpcService ?? throw new ArgumentNullException(nameof(airportInfoGrpcService));
+        }
+
         /// <summary>
         /// Geoposition coordinates.
         /// </summary>
@@ -62,11 +69,12 @@ namespace Airport.Api.Controllers
         [HttpGet("Between")]
         public async Task<ActionResult<string>> GetBetween([FromQuery] BetweenInputModel model)
         {
-            var calc = new GreatCircleCalculator();
+            var fromAirport = await _airportInfoGrpcService.GetAirportInfo(model.From);
+            var toAirport = await _airportInfoGrpcService.GetAirportInfo(model.To);
 
-            var f = calc.Distance(new GeoPosition(32.309069, 4.763385), new GeoPosition(52.309069, 2.763385), DistanceUnit.Kilometr);
+            //var calc = new GreatCircleCalculator();
 
-            var d = distance(32.309069, 4.763385, 52.309069, 2.763385,  'K');
+            //var f = calc.Distance(new GeoPosition(32.309069, 4.763385), new GeoPosition(52.309069, 2.763385), DistanceUnit.Kilometr);
 
             return Ok("1");
         }

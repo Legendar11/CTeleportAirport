@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Airport.Api", "Airport.Api\Airport.Api.csproj", "{8C29E5CA-16AC-411B-B0DA-EE296D95765F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airport.Api", "Airport.Api\Airport.Api.csproj", "{8C29E5CA-16AC-411B-B0DA-EE296D95765F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{664B1D9E-9FE3-4839-88DC-E0A875B84904}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AirportInfo", "AirportInfo", "{44C58AC0-4E8B-4E1D-AC1D-EF10ECB13712}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportInfo.Grpc", "Services\AirportInfo\AirportInfo.Grpc\AirportInfo.Grpc.csproj", "{53B92983-C12B-482F-8552-DEF28C9D0E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{8C29E5CA-16AC-411B-B0DA-EE296D95765F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C29E5CA-16AC-411B-B0DA-EE296D95765F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C29E5CA-16AC-411B-B0DA-EE296D95765F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B92983-C12B-482F-8552-DEF28C9D0E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B92983-C12B-482F-8552-DEF28C9D0E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B92983-C12B-482F-8552-DEF28C9D0E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B92983-C12B-482F-8552-DEF28C9D0E26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44C58AC0-4E8B-4E1D-AC1D-EF10ECB13712} = {664B1D9E-9FE3-4839-88DC-E0A875B84904}
+		{53B92983-C12B-482F-8552-DEF28C9D0E26} = {44C58AC0-4E8B-4E1D-AC1D-EF10ECB13712}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B945E9F-EB64-43B2-A6FB-885205EC19C6}

@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GeoCoordinate.NetCore" Version="1.0.0.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\Grpc\" />
+    <Protobuf Include="..\Services\AirportInfo\AirportInfo.Grpc\Protos\info.proto" GrpcServices="Client">
+      <Link>Protos\info.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

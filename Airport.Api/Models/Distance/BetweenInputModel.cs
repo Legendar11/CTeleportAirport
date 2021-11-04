@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Airport.Api.DTO.Api.Distance
+namespace Airport.Api.Models.Distance
 {
-    public class BetweenInputModel
+    public sealed record BetweenInputModel
     {
         [Required]
         [StringLength(maximumLength: 3, MinimumLength = 3)]
