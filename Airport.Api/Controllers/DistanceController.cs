@@ -1,5 +1,7 @@
 ﻿using Airport.Api.GrpcServices;
 using Airport.Api.Models.Distance;
+using AutoMapper;
+using Measuring.Grpc.Protos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,57 +15,19 @@ namespace Airport.Api.Controllers
     [ApiController]
     public class DistanceController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly AirportInfoGrpcService _airportInfoGrpcService;
+        private readonly MeasuringGrpcService _measuringGrpcService;
 
-        public DistanceController(AirportInfoGrpcService airportInfoGrpcService)
+        public DistanceController(
+            IMapper mapper,
+            AirportInfoGrpcService airportInfoGrpcService,
+            MeasuringGrpcService measuringGrpcService
+        )
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _airportInfoGrpcService = airportInfoGrpcService ?? throw new ArgumentNullException(nameof(airportInfoGrpcService));
-        }
-
-        /// <summary>
-        /// Geoposition coordinates.
-        /// </summary>
-        /// <param name="Latitude">Latitude coordinate.</param>
-        /// <param name="Longitude">Longitude coordinate.</param>
-        public record GeoPosition(
-            double Latitude,
-            double Longitude
-        );
-
-        public enum DistanceUnit
-        {
-            Mile,
-            NauticalMile,
-            Kilometr
-        }
-
-        private class GreatCircleCalculator
-        {
-            private double DegreesToRadians(double deg) => deg * Math.PI / 180.0;
-
-            private double rad2deg(double rad) => rad / Math.PI * 180.0;
-
-            public double Distance(GeoPosition from, GeoPosition to, DistanceUnit unit)
-            {
-                if (from == to)
-                    return 0;
-
-                var theta = from.Longitude - to.Longitude;
-                var dist = Math.Sin(DegreesToRadians(from.Latitude)) * Math.Sin(DegreesToRadians(to.Latitude)) 
-                    + Math.Cos(DegreesToRadians(from.Latitude)) * Math.Cos(DegreesToRadians(to.Latitude)) * Math.Cos(DegreesToRadians(theta));
-                dist = Math.Acos(dist);
-                dist = rad2deg(dist);
-                dist = dist * 60 * 1.1515;
-
-                dist = unit switch
-                {
-                    DistanceUnit.NauticalMile => dist * 0.8684,
-                    DistanceUnit.Kilometr => dist * 1.609344,
-                    _ => dist
-                };
-
-                return dist;
-            }
+            _measuringGrpcService = measuringGrpcService ?? throw new ArgumentNullException(nameof(measuringGrpcService));
         }
 
         [HttpGet("Between")]
@@ -72,11 +36,11 @@ namespace Airport.Api.Controllers
             var fromAirport = await _airportInfoGrpcService.GetAirportInfo(model.From);
             var toAirport = await _airportInfoGrpcService.GetAirportInfo(model.To);
 
-            //var calc = new GreatCircleCalculator();
-
-            //var f = calc.Distance(new GeoPosition(32.309069, 4.763385), new GeoPosition(52.309069, 2.763385), DistanceUnit.Kilometr);
-
-            return Ok("1");
+            var fromLocation = _mapper.Map<LocationModel>(fromAirport.Location);
+            var toLocation = _mapper.Map<LocationModel>(toAirport.Location);
+            var distance = await _measuringGrpcService.GetDistanceBetweenTwoPoints(fromLocation, toLocation, Measuring.Grpc.Protos.DistanceUnit.Kilometr);
+          
+            return Ok(distance);
         }
     }
 }

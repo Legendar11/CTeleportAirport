@@ -4,13 +4,10 @@ option csharp_namespace = "AirportInfo.Grpc.Protos";
 
 package info;
 
-// Service for getting airport info.
 service AirportInfoProtoService {
-  // Sends a greeting
   rpc GetAirportInfo (GetAirportInfoRequest) returns (AirportInfoModel);
 }
 
-// Request for get airport info.
 message GetAirportInfoRequest {
   string codeByIATA = 1;
 }
@@ -20,7 +17,6 @@ message LocationModel {
 	double latitude = 2;
 }
 
-// Reply for airport info request.
 message AirportInfoModel {
 	string country = 1;
 	string cityIATA = 2;

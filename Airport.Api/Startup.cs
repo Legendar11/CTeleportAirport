@@ -1,33 +1,27 @@
 using Airport.Api.Filters;
 using Airport.Api.GrpcServices;
 using AirportInfo.Grpc.Protos;
+using Measuring.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Airport.Api
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -39,10 +33,13 @@ namespace Airport.Api
                 {
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Airport.Api", Version = "v1" });
             });
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddRouting(options => { options.LowercaseUrls = true; });
 
@@ -52,9 +49,15 @@ namespace Airport.Api
                 options.Address = new Uri(url);
             });
             services.AddScoped<AirportInfoGrpcService>();
+
+            services.AddGrpcClient<MeasuringProtoService.MeasuringProtoServiceClient>(options =>
+            {
+                var url = Configuration["GrpcSettings:MeasuringUrl"];
+                options.Address = new Uri(url);
+            });
+            services.AddScoped<MeasuringGrpcService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

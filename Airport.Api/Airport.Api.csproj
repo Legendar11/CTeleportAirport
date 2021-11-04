@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
@@ -15,6 +17,9 @@
   <ItemGroup>
     <Protobuf Include="..\Services\AirportInfo\AirportInfo.Grpc\Protos\info.proto" GrpcServices="Client">
       <Link>Protos\info.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Services\Measuring\Measuring.Grpc\Protos\measuring.proto" GrpcServices="Client">
+      <Link>Protos\measuring.proto</Link>
     </Protobuf>
   </ItemGroup>
 

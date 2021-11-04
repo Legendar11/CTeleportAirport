@@ -23,7 +23,9 @@ namespace AirportInfo.Grpc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+
             services.AddAutoMapper(typeof(Startup));
+
             services.AddHttpClient<IAirportApi, AirportApi>("AirportApi", client =>
             {
                 const string sectionName = "AirportApiSettings";
@@ -35,7 +37,6 @@ namespace AirportInfo.Grpc
                 client.BaseAddress = new Uri(configuration.BaseUrl);
                 client.Timeout = configuration.Timeout;
             });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

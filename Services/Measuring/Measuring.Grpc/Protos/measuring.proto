@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option csharp_namespace = "Measuring.Grpc.Protos";
+
+package measuring;
+
+service MeasuringProtoService {
+  rpc GetDistanceBetweenTwoPoints (GetDistanceBetweenTwoPointsRequest) returns (DistanceBetweenTwoPointsModel);
+}
+
+message LocationModel {
+	double longitude = 1;
+	double latitude = 2;
+}
+
+enum DistanceUnit {
+	Mile = 0;
+	NauticalMile = 1;
+	Kilometr = 2;
+}
+
+message GetDistanceBetweenTwoPointsRequest {
+  LocationModel from = 1;
+  LocationModel to = 2;
+  DistanceUnit unit = 3;
+}
+
+message DistanceBetweenTwoPointsModel {
+	double distance = 1;
+	LocationModel from = 2;
+	LocationModel to = 3;
+}

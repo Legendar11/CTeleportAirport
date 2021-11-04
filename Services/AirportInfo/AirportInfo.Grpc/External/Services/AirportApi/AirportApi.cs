@@ -12,8 +12,6 @@ namespace AirportInfo.Grpc.External.Services.AirportApi
     {
         private readonly HttpClient _client;
 
-        private readonly AirportApiConfiguration _configuration;
-
         private JsonSerializerOptions JsonSerializerOptions => new JsonSerializerOptions
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase

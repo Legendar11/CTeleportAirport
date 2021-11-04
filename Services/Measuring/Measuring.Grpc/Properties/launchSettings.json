@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "AirportInfo.Grpc": {
+    "Measuring.Grpc": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",
-      "applicationUrl": "http://localhost:5101"
+      "applicationUrl": "http://localhost:5102"
     },
     "Docker": {
       "commandName": "Docker",
