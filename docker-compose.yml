@@ -1,0 +1,29 @@
+version: '1.0'
+
+services:
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGw/Dockerfile
+
+  airport.api:
+    image: ${DOCKER_REGISTRY-}airportapi
+    build:
+      context: .
+      dockerfile: Services/Airport.Api/Dockerfile
+
+
+  measuring.grpc:
+    image: ${DOCKER_REGISTRY-}measuringgrpc
+    build:
+      context: .
+      dockerfile: Services/Measuring/Measuring.Grpc/Dockerfile
+
+
+  airportinfo.grpc:
+    image: ${DOCKER_REGISTRY-}airportinfogrpc
+    build:
+      context: .
+      dockerfile: Services/AirportInfo/AirportInfo.Grpc/Dockerfile
+

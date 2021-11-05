@@ -3,14 +3,13 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["AirportInfo.Grpc/AirportInfo.Grpc.csproj", "AirportInfo.Grpc/"]
-RUN dotnet restore "AirportInfo.Grpc/AirportInfo.Grpc.csproj"
+COPY ["Services/AirportInfo/AirportInfo.Grpc/AirportInfo.Grpc.csproj", "Services/AirportInfo/AirportInfo.Grpc/"]
+RUN dotnet restore "Services/AirportInfo/AirportInfo.Grpc/AirportInfo.Grpc.csproj"
 COPY . .
-WORKDIR "/src/AirportInfo.Grpc"
+WORKDIR "/src/Services/AirportInfo/AirportInfo.Grpc"
 RUN dotnet build "AirportInfo.Grpc.csproj" -c Release -o /app/build
 
 FROM build AS publish
