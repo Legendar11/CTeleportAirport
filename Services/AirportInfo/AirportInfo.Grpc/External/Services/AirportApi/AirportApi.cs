@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AirportInfo.Grpc.External.Services.AirportApi
 {
-    internal class AirportApi : IAirportApi
+    public class AirportApi : IAirportApi
     {
         private readonly HttpClient _client;
 

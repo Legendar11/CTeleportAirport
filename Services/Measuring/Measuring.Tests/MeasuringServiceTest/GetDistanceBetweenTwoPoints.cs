@@ -32,8 +32,8 @@ namespace Measuring.Tests.MeasuringServiceTest
         [TestCaseSource(nameof(GetInvalidParametrs))]
         public void IncorrectParametrs((LocationModel from, LocationModel to) input)
         {
-            Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => 
-                Service.GetDistanceBetweenTwoPoints(new GetDistanceBetweenTwoPointsRequest
+            Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => 
+                await Service.GetDistanceBetweenTwoPoints(new GetDistanceBetweenTwoPointsRequest
             {
                 From = input.from,
                 To = input.to,

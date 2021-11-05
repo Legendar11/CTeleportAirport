@@ -1,4 +1,7 @@
 ﻿{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  },
   "Routes": [
     // Airport.Api
     {
@@ -21,8 +24,5 @@
         "Limit": 10
       }
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5000"
-  }
+  ]
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\Services\AirportInfo\AirportInfo.Grpc\Protos\info.proto" GrpcServices="Client">
+    <Protobuf Include="..\AirportInfo\AirportInfo.Grpc\Protos\info.proto" GrpcServices="Client">
       <Link>Protos\info.proto</Link>
     </Protobuf>
-    <Protobuf Include="..\Services\Measuring\Measuring.Grpc\Protos\measuring.proto" GrpcServices="Client">
+    <Protobuf Include="..\Measuring\Measuring.Grpc\Protos\measuring.proto" GrpcServices="Client">
       <Link>Protos\measuring.proto</Link>
     </Protobuf>
   </ItemGroup>
