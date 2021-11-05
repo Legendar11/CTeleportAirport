@@ -1,5 +1,6 @@
 ﻿using AirportInfo.Grpc.External.Configurations;
 using AirportInfo.Grpc.External.Services.AirportApi;
+using AirportInfo.Grpc.Middlewares;
 using AirportInfo.Grpc.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +23,11 @@ namespace AirportInfo.Grpc
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddGrpc();
+            services.AddGrpc(options =>
+            {
+                options.Interceptors.Add<ErrorHandlingMiddleware>();
+                options.EnableDetailedErrors = true;
+            });
 
             services.AddAutoMapper(typeof(Startup));
 

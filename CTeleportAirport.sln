@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airport.Api", "Airport.Api\Airport.Api.csproj", "{8C29E5CA-16AC-411B-B0DA-EE296D95765F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Airport.Api", "Services\Airport.Api\Airport.Api.csproj", "{8C29E5CA-16AC-411B-B0DA-EE296D95765F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{664B1D9E-9FE3-4839-88DC-E0A875B84904}"
 EndProject
@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportInfo.Grpc", "Service
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Measuring", "Measuring", "{546D25DA-6965-4A0A-8981-2D029AAD78E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measuring.Grpc", "Services\Measuring\Measuring.Grpc\Measuring.Grpc.csproj", "{CED2A22A-4B0D-4087-93C1-CDC23FFA840C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measuring.Grpc", "Services\Measuring\Measuring.Grpc\Measuring.Grpc.csproj", "{CED2A22A-4B0D-4087-93C1-CDC23FFA840C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measuring.Tests", "Services\Measuring\Measuring.Tests\Measuring.Tests.csproj", "{934B84A2-F48F-4550-84B5-2A21130DF215}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measuring.Tests", "Services\Measuring\Measuring.Tests\Measuring.Tests.csproj", "{934B84A2-F48F-4550-84B5-2A21130DF215}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportInfo.Tests", "Services\AirportInfo\AirportInfo.Tests\AirportInfo.Tests.csproj", "{5F48EBD0-7BC4-4D6F-8299-12B21BA58E4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportInfo.Tests", "Services\AirportInfo\AirportInfo.Tests\AirportInfo.Tests.csproj", "{5F48EBD0-7BC4-4D6F-8299-12B21BA58E4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{70DC7AF1-2760-4A2A-832D-9C66E76803B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGw", "ApiGateways\OcelotApiGw\OcelotApiGw.csproj", "{70F8778E-D7F7-4D02-B4A1-E8F0886E309E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,17 +49,23 @@ Global
 		{5F48EBD0-7BC4-4D6F-8299-12B21BA58E4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F48EBD0-7BC4-4D6F-8299-12B21BA58E4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F48EBD0-7BC4-4D6F-8299-12B21BA58E4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F8778E-D7F7-4D02-B4A1-E8F0886E309E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F8778E-D7F7-4D02-B4A1-E8F0886E309E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F8778E-D7F7-4D02-B4A1-E8F0886E309E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F8778E-D7F7-4D02-B4A1-E8F0886E309E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8C29E5CA-16AC-411B-B0DA-EE296D95765F} = {664B1D9E-9FE3-4839-88DC-E0A875B84904}
 		{44C58AC0-4E8B-4E1D-AC1D-EF10ECB13712} = {664B1D9E-9FE3-4839-88DC-E0A875B84904}
 		{53B92983-C12B-482F-8552-DEF28C9D0E26} = {44C58AC0-4E8B-4E1D-AC1D-EF10ECB13712}
 		{546D25DA-6965-4A0A-8981-2D029AAD78E5} = {664B1D9E-9FE3-4839-88DC-E0A875B84904}
 		{CED2A22A-4B0D-4087-93C1-CDC23FFA840C} = {546D25DA-6965-4A0A-8981-2D029AAD78E5}
 		{934B84A2-F48F-4550-84B5-2A21130DF215} = {546D25DA-6965-4A0A-8981-2D029AAD78E5}
 		{5F48EBD0-7BC4-4D6F-8299-12B21BA58E4F} = {44C58AC0-4E8B-4E1D-AC1D-EF10ECB13712}
+		{70F8778E-D7F7-4D02-B4A1-E8F0886E309E} = {70DC7AF1-2760-4A2A-832D-9C66E76803B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B945E9F-EB64-43B2-A6FB-885205EC19C6}

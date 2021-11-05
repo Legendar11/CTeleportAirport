@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AirportInfo.Grpc.External.Services.AirportApi
 {
-    internal interface IAirportApi
+    public interface IAirportApi
     {
         Task<AirportInfoData> GetInfo(string codeByIATA);
     }

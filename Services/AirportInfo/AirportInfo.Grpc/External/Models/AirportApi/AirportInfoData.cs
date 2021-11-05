@@ -2,7 +2,7 @@
 
 namespace AirportInfo.Grpc.External.Models.AirportApi
 {
-    internal class Location
+    public class Location
     {
         [JsonPropertyName("lon")]
         public double Longitude { get; set; }
@@ -11,7 +11,7 @@ namespace AirportInfo.Grpc.External.Models.AirportApi
         public double Latitude { get; set; }
     }
 
-    internal class AirportInfoData
+    public class AirportInfoData
     {
         public string Country { get; set; }
 

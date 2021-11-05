@@ -1,13 +1,17 @@
-using Airport.Api.Filters;
 using Airport.Api.GrpcServices;
+using Airport.Api.Middlewares;
 using AirportInfo.Grpc.Protos;
 using Measuring.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Text.Json;
 
@@ -36,9 +40,20 @@ namespace Airport.Api
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 });
 
-            services.AddSwaggerGen(c =>
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfiguratorSwagger>();
+            services.AddSwaggerGen();
+
+            services.AddApiVersioning(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Airport.Api", Version = "v1" });
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
             });
 
             services.AddCors(options =>
@@ -73,17 +88,16 @@ namespace Airport.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Airport.Api v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Airport.Api v1"));
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UsePathBase("/api");
 
             app.UseEndpoints(endpoints =>
             {

@@ -27,11 +27,12 @@ namespace AirportInfo.Grpc.External.Services.AirportApi
             var url = $"/airports/{codeByIATA}";
             var response = await _client.GetAsync(url);
 
-            if (!response.IsSuccessStatusCode)
-                throw new Exception();
+            var content = await response.Content.ReadAsStringAsync();
 
-            var json = await response.Content.ReadAsStringAsync();
-            var model = JsonSerializer.Deserialize<AirportInfoData>(json, JsonSerializerOptions);
+            if (!response.IsSuccessStatusCode)
+                throw new Exception($"Error code {(int)response.StatusCode}, message: {content}");
+
+            var model = JsonSerializer.Deserialize<AirportInfoData>(content, JsonSerializerOptions);
             return model;
         }
     }

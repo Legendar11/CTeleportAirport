@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Measuring.Tests.MeasuringServiceTest
 {
+    [Category("Module")]
     public class Tests
     {
         private MeasuringProtoService.MeasuringProtoServiceBase Service { get; set; }
