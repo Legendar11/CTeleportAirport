@@ -4,7 +4,6 @@ namespace Measuring.Grpc.Extensions
 {
     public static class DoubleExtensions
     {
-
         public static double DegreesToRadians(this double deg) => deg * Math.PI / 180.0;
 
         public static double RadiansToDegrees(this double rad) => rad / Math.PI * 180.0;

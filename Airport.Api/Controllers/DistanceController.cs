@@ -2,11 +2,8 @@
 using Airport.Api.Models.Distance;
 using AutoMapper;
 using Measuring.Grpc.Protos;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Airport.Api.Controllers
@@ -38,7 +35,7 @@ namespace Airport.Api.Controllers
 
             var fromLocation = _mapper.Map<LocationModel>(fromAirport.Location);
             var toLocation = _mapper.Map<LocationModel>(toAirport.Location);
-            var distance = await _measuringGrpcService.GetDistanceBetweenTwoPoints(fromLocation, toLocation, Measuring.Grpc.Protos.DistanceUnit.Kilometr);
+            var distance = await _measuringGrpcService.GetDistanceBetweenTwoPoints(fromLocation, toLocation, Measuring.Grpc.Protos.DistanceUnit.Mile);
           
             return Ok(distance);
         }

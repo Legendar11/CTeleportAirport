@@ -24,6 +24,8 @@ namespace Airport.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
+
             services
                 .AddControllers(options =>
                 {
@@ -37,6 +39,14 @@ namespace Airport.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Airport.Api", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
             });
 
             services.AddAutoMapper(typeof(Startup));
@@ -73,9 +83,12 @@ namespace Airport.Api
 
             app.UseAuthorization();
 
+            app.UsePathBase("/api");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
     }
