@@ -9,8 +9,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": "5100"
+          "Host": "airport.api",
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/distance/between",

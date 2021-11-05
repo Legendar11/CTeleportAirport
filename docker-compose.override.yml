@@ -2,35 +2,37 @@ version: '1.0'
 
 services:
   ocelotapigw:
+    container_name: ocelotapigw
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-    container_name: ocelotapigw
     depends_on:
         - airport.api
     ports:
-        - 7000:80
+        - 5000:80
 
   airport.api:
+    container_name: airport.api
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-    container_name: airport.api
+        - "GrpcSettings:AirportInfoUrl=http://airportinfo.grpc"
+        - "GrpcSettings:MeasuringUrl=http://measuring.grpc"
     depends_on:
         - airportinfo.grpc
         - measuring.grpc
     ports:
-        - 5200:80
+        - 5100:80
         
   airportinfo.grpc:
+    container_name: airportinfo.grpc
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-    container_name: airportinfo.grpc
     ports:
         - 5101:80
 
   measuring.grpc:
+    container_name: measuring.grpc
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-    container_name: measuring.grpc
     ports:
-        - 5102:80
+         - 5102:80
 

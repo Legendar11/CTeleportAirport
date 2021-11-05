@@ -9,20 +9,12 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": "5100"
+          "Host": "airport.api",
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/distance/between",
-      "UpstreamHttpMethod": [ "GET" ],
-      "FileCacheOptions": { "TtlSeconds": 30 },
-      "RateLimitOptions": {
-        "ClientWhitelist": [],
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 5,
-        "Limit": 10
-      }
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ]
 }

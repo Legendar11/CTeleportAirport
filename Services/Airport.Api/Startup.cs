@@ -5,12 +5,11 @@ using Measuring.Grpc.Protos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Text.Json;
@@ -68,19 +67,7 @@ namespace Airport.Api
 
             services.AddRouting(options => { options.LowercaseUrls = true; });
 
-            services.AddGrpcClient<AirportInfoProtoService.AirportInfoProtoServiceClient>(options =>
-            {
-                var url = Configuration["GrpcSettings:AirportInfoUrl"];
-                options.Address = new Uri(url);
-            });
-            services.AddScoped<AirportInfoGrpcService>();
-
-            services.AddGrpcClient<MeasuringProtoService.MeasuringProtoServiceClient>(options =>
-            {
-                var url = Configuration["GrpcSettings:MeasuringUrl"];
-                options.Address = new Uri(url);
-            });
-            services.AddScoped<MeasuringGrpcService>();
+            ConfigureGrpc(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -104,6 +91,29 @@ namespace Airport.Api
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
             });
+        }
+
+        private void ConfigureGrpc(IServiceCollection services)
+        {
+            var logger = services
+                     .BuildServiceProvider()
+                     .GetRequiredService<ILogger<ErrorHandlingGrpc>>();
+
+            services.AddGrpcClient<AirportInfoProtoService.AirportInfoProtoServiceClient>(options =>
+            {
+                var url = Configuration["GrpcSettings:AirportInfoUrl"];
+                options.Address = new Uri(url);
+                options.Interceptors.Add(new ErrorHandlingGrpc(logger));
+            });
+            services.AddScoped<AirportInfoGrpcService>();
+
+            services.AddGrpcClient<MeasuringProtoService.MeasuringProtoServiceClient>(options =>
+            {
+                var url = Configuration["GrpcSettings:MeasuringUrl"];
+                options.Address = new Uri(url);
+                options.Interceptors.Add(new ErrorHandlingGrpc(logger));
+            });
+            services.AddScoped<MeasuringGrpcService>();
         }
     }
 }
