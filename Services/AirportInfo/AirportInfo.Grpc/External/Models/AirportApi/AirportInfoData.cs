@@ -8,10 +8,10 @@ namespace AirportInfo.Grpc.External.Models.AirportApi
     public sealed record Location
     {
         [JsonPropertyName("lon")]
-        public double Longitude { get; set; }
+        public double Longitude { get; init; }
 
         [JsonPropertyName("lat")]
-        public double Latitude { get; set; }
+        public double Latitude { get; init; }
     }
     
     // TODO: Wait .NET 6 and use JsonSerializerContext for faster serialization.
@@ -20,29 +20,29 @@ namespace AirportInfo.Grpc.External.Models.AirportApi
     /// </summary>
     public sealed record AirportInfoData
     {
-        public string Country { get; set; }
+        public string Country { get; init; }
 
         [JsonPropertyName("city_iata")]
-        public string CityIATA { get; set; }
+        public string CityIATA { get; init; }
 
-        public string IATA { get; set; }
+        public string IATA { get; init; }
 
-        public string City { get; set; }
+        public string City { get; init; }
 
         [JsonPropertyName("timezone_region_name")]
-        public string TimezoneRegionName { get; set; }
+        public string TimezoneRegionName { get; init; }
 
         [JsonPropertyName("country_iata")]
-        public string CountryIATA { get; set; }
+        public string CountryIATA { get; init; }
 
-        public int Rating { get; set; }
+        public int Rating { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public Location Location { get; set; }
+        public Location Location { get; init; }
 
-        public string Type { get; set; }
+        public string Type { get; init; }
 
-        public int Hubs { get; set; }
+        public int Hubs { get; init; }
     }
 }

@@ -21,7 +21,7 @@
         "EnableRateLimiting": true,
         "Period": "1s",
         "PeriodTimespan": 5,
-        "Limit": 10
+        "Limit": 100
       }
     }
   ]
