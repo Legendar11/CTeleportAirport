@@ -21,6 +21,9 @@ namespace AirportInfo.Grpc.Services
             _airportApi = airportApi ?? throw new ArgumentNullException(nameof(airportApi));
         }
 
+        /// <summary>
+        /// Get full information about airport.
+        /// </summary>
         public override async Task<AirportInfoModel> GetAirportInfo(GetAirportInfoRequest request, ServerCallContext context)
         {
             var airportData = await _airportApi.GetInfo(request.CodeByIATA);

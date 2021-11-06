@@ -11,11 +11,15 @@ namespace Measuring.Grpc.Services
     /// </summary>
     public class MeasuringService : MeasuringProtoService.MeasuringProtoServiceBase
     {
+        /// <summary>
+        /// Calc distance between airports.
+        /// </summary>
+        /// For original code: <see cref="https://www.geodatasource.com/developers/c-sharp"/>
+        /// For checking: <see cref="https://movable-type.co.uk/scripts/latlong.html"/>
+        /// For math: <see cref="https://en.wikipedia.org/wiki/Haversine_formula"/>
         public override async Task<DistanceBetweenTwoPointsModel> 
             GetDistanceBetweenTwoPoints(GetDistanceBetweenTwoPointsRequest request, ServerCallContext context)
         {
-            // https://en.wikipedia.org/wiki/Haversine_formula
-
             static void checkLocation(LocationModel model)
             {
                 if (!model.IsCorrect())
