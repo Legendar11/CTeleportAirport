@@ -4,6 +4,9 @@ using AutoMapper;
 
 namespace AirportInfo.Grpc.Mapper
 {
+    /// <summary>
+    /// Profile for convert http api model to grpc model.
+    /// </summary>
     public class AirportInfoProfile : Profile
     {
         public AirportInfoProfile()

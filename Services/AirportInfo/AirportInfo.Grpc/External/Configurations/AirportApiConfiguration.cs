@@ -2,10 +2,20 @@
 
 namespace AirportInfo.Grpc.External.Configurations
 {
-    internal class AirportApiConfiguration
+    /// <summary>
+    /// Configuration for AirportInfoService HTTP API.
+    /// <see cref="AirportInfo.Grpc.Services.AirportInfoService"/>
+    /// </summary>
+    internal record AirportApiConfiguration
     {
-        public string BaseUrl { get; set; }
+        /// <summary>
+        /// URL of api service.
+        /// </summary>
+        public string BaseUrl { get; init; }
 
-        public TimeSpan Timeout { get; set; }
+        /// <summary>
+        /// Required timeout for http client.
+        /// </summary>
+        public TimeSpan Timeout { get; init; }
     }
 }

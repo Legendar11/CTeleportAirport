@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Airport.Api.Middlewares
 {
+    /// <summary>
+    /// Error handler for common, validation, inner services exceptions.
+    /// </summary>
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;

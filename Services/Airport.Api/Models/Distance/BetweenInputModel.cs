@@ -2,6 +2,9 @@
 
 namespace Airport.Api.Models.Distance
 {
+    /// <summary>
+    /// Input model for calculation distance between two airports.
+    /// </summary>
     public sealed record BetweenInputModel
     {
         [Required]

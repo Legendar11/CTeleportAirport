@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AirportInfo.Grpc.Middlewares
 {
+    /// <summary>
+    /// Handler for exceiptions in grpc service.
+    /// </summary>
     public class ErrorHandlingMiddleware : Interceptor
     {
         private readonly ILogger<ErrorHandlingMiddleware> _logger;

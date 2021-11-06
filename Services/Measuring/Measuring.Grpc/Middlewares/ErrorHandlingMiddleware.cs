@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Measuring.Grpc.Middlewares
 {
+    /// <summary>
+    /// Handler for exceiptions in grpc service.
+    /// </summary>
     public class ErrorHandlingMiddleware : Interceptor
     {
         private readonly ILogger<ErrorHandlingMiddleware> _logger;

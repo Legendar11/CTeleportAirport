@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Airport.Api.GrpcServices
 {
+    /// <summary>
+    /// Grpc service client for measuring and calulating.
+    /// </summary>
     public class MeasuringGrpcService
     {
         private readonly MeasuringProtoService.MeasuringProtoServiceClient _measuringProtoService;
@@ -13,6 +16,9 @@ namespace Airport.Api.GrpcServices
             _measuringProtoService = measuringProtoService ?? throw new ArgumentNullException(nameof(measuringProtoService));
         }
 
+        /// <summary>
+        /// Calc distance between two points.
+        /// </summary>
         public async Task<DistanceBetweenTwoPointsModel> GetDistanceBetweenTwoPoints(LocationModel from, LocationModel to, DistanceUnit unit)
         {
             var distanceBetweenTwoPointsRequest = new GetDistanceBetweenTwoPointsRequest 

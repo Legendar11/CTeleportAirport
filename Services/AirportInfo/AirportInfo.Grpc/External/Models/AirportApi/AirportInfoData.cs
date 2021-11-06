@@ -2,7 +2,10 @@
 
 namespace AirportInfo.Grpc.External.Models.AirportApi
 {
-    public class Location
+    /// <summary>
+    /// Geoposition by degrees;
+    /// </summary>
+    public sealed record Location
     {
         [JsonPropertyName("lon")]
         public double Longitude { get; set; }
@@ -10,8 +13,12 @@ namespace AirportInfo.Grpc.External.Models.AirportApi
         [JsonPropertyName("lat")]
         public double Latitude { get; set; }
     }
-
-    public class AirportInfoData
+    
+    // TODO: Wait .NET 6 and use JsonSerializerContext for faster serialization.
+    /// <summary>
+    /// Full information about airport.
+    /// </summary>
+    public sealed record AirportInfoData
     {
         public string Country { get; set; }
 

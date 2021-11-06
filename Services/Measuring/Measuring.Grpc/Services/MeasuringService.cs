@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Measuring.Grpc.Services
 {
+    /// <summary>
+    /// Implementation of measuring.proto service.
+    /// </summary>
     public class MeasuringService : MeasuringProtoService.MeasuringProtoServiceBase
     {
         public override async Task<DistanceBetweenTwoPointsModel> 

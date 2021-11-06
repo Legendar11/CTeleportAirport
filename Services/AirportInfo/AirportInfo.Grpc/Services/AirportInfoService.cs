@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace AirportInfo.Grpc.Services
 {
+    /// <summary>
+    /// Implementation of info.proto service.
+    /// </summary>
     public class AirportInfoService : AirportInfoProtoService.AirportInfoProtoServiceBase
     {
         private readonly IMapper _mapper;

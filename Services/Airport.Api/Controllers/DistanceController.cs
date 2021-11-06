@@ -29,6 +29,9 @@ namespace Airport.Api.Controllers
             _measuringGrpcService = measuringGrpcService ?? throw new ArgumentNullException(nameof(measuringGrpcService));
         }
 
+        /// <summary>
+        /// Get distance between two airports in miles.
+        /// </summary>
         [HttpGet("Between")]
         [ProducesResponseType(typeof(BetweenOutputModel), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<BetweenOutputModel>> GetBetween([FromQuery] BetweenInputModel model)

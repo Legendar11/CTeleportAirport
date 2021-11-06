@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Airport.Api.Middlewares
 {
+    /// <summary>
+    /// Error handler for error when send and get grpc request.
+    /// </summary>
     public class ErrorHandlingGrpc : Interceptor
     {
         private readonly ILogger<ErrorHandlingGrpc> _logger;

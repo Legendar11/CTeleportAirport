@@ -6,6 +6,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Airport.Api.Middlewares
 {
+    /// <summary>
+    /// Custom swagger configuration for API versioning.
+    /// </summary>
     public class ConfiguratorSwagger : IConfigureOptions<SwaggerGenOptions>
     {
         readonly IApiVersionDescriptionProvider provider;

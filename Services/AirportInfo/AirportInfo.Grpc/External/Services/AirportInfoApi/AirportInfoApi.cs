@@ -1,6 +1,4 @@
-﻿using AirportInfo.Grpc.External.Configurations;
-using AirportInfo.Grpc.External.Models.AirportApi;
-using Microsoft.Extensions.Configuration;
+﻿using AirportInfo.Grpc.External.Models.AirportApi;
 using System;
 using System.Net.Http;
 using System.Text.Json;
