@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace AirportInfo.Grpc.External.Services.AirportApi
+namespace AirportInfo.Grpc.External.Services.AirportInfoApi
 {
-    public class AirportApi : IAirportApi
+    public class AirportInfoApi : IAirportInfoApi
     {
         private readonly HttpClient _client;
 
@@ -17,7 +17,7 @@ namespace AirportInfo.Grpc.External.Services.AirportApi
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
-        public AirportApi(HttpClient client)
+        public AirportInfoApi(HttpClient client)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
         }

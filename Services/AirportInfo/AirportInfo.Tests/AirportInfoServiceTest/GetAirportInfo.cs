@@ -1,5 +1,5 @@
 using AirportInfo.Grpc.External.Models.AirportApi;
-using AirportInfo.Grpc.External.Services.AirportApi;
+using AirportInfo.Grpc.External.Services.AirportInfoApi;
 using AirportInfo.Grpc.Mapper;
 using AirportInfo.Grpc.Protos;
 using AirportInfo.Grpc.Services;
@@ -20,7 +20,7 @@ namespace AirportInfo.Tests.AirportInfoServiceTest
     {
         private AirportInfoProtoService.AirportInfoProtoServiceBase Service { get; set; }
 
-        private IAirportApi Api { get; set; }
+        private IAirportInfoApi Api { get; set; }
 
         private IMapper Mapper { get; set; }
 
@@ -66,7 +66,7 @@ namespace AirportInfo.Tests.AirportInfoServiceTest
             var config = new MapperConfiguration(cfg => cfg.AddProfile<AirportInfoProfile>());
             Mapper = config.CreateMapper();
 
-            Api = new AirportApi(httpClient);
+            Api = new AirportInfoApi(httpClient);
 
             Service = new AirportInfoService(Mapper, Api);
         }

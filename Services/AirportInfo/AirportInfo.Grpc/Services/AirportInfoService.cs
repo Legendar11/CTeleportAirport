@@ -1,4 +1,4 @@
-﻿using AirportInfo.Grpc.External.Services.AirportApi;
+﻿using AirportInfo.Grpc.External.Services.AirportInfoApi;
 using AirportInfo.Grpc.Protos;
 using AutoMapper;
 using Grpc.Core;
@@ -10,9 +10,9 @@ namespace AirportInfo.Grpc.Services
     public class AirportInfoService : AirportInfoProtoService.AirportInfoProtoServiceBase
     {
         private readonly IMapper _mapper;
-        private readonly IAirportApi _airportApi;
+        private readonly IAirportInfoApi _airportApi;
 
-        public AirportInfoService(IMapper mapper, IAirportApi airportApi)
+        public AirportInfoService(IMapper mapper, IAirportInfoApi airportApi)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _airportApi = airportApi ?? throw new ArgumentNullException(nameof(airportApi));

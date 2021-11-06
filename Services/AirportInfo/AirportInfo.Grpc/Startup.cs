@@ -1,5 +1,5 @@
 ﻿using AirportInfo.Grpc.External.Configurations;
-using AirportInfo.Grpc.External.Services.AirportApi;
+using AirportInfo.Grpc.External.Services.AirportInfoApi;
 using AirportInfo.Grpc.Middlewares;
 using AirportInfo.Grpc.Services;
 using Microsoft.AspNetCore.Builder;
@@ -31,7 +31,7 @@ namespace AirportInfo.Grpc
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddHttpClient<IAirportApi, AirportApi>("AirportApi", client =>
+            services.AddHttpClient<IAirportInfoApi, AirportInfoApi>("AirportApi", client =>
             {
                 const string sectionName = "AirportApiSettings";
                 var configuration = Configuration
