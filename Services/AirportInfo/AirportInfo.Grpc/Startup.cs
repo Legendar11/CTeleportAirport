@@ -8,7 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Polly;
+using Polly.Contrib.WaitAndRetry;
+using Polly.Extensions.Http;
 using System;
+using System.Net.Http;
 
 namespace AirportInfo.Grpc
 {
@@ -31,17 +35,19 @@ namespace AirportInfo.Grpc
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddHttpClient<IAirportInfoApi, AirportInfoApi>("AirportApi", client =>
-            {
-                const string sectionName = "AirportApiSettings";
-                var configuration = Configuration
-                    .GetSection(sectionName)
-                    .Get<AirportApiConfiguration>()
-                    ?? throw new ArgumentNullException(sectionName);
+            services
+                .AddHttpClient<IAirportInfoApi, AirportInfoApi>("AirportApi", client =>
+                {
+                    const string sectionName = "AirportApiSettings";
+                    var configuration = Configuration
+                        .GetSection(sectionName)
+                        .Get<AirportApiConfiguration>()
+                        ?? throw new ArgumentNullException(sectionName);
 
-                client.BaseAddress = new Uri(configuration.BaseUrl);
-                client.Timeout = configuration.Timeout;
-            });
+                    client.BaseAddress = new Uri(configuration.BaseUrl);
+                    client.Timeout = configuration.Timeout;
+                })
+                .AddPolicyHandler(GetRetryPolicy());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,6 +68,16 @@ namespace AirportInfo.Grpc
                     await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
                 });
             });
+        }
+        
+        private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        {
+            var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
+
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+                .WaitAndRetryAsync(delay);
         }
     }
 }
