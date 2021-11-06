@@ -20,28 +20,28 @@ namespace AirportInfo.Grpc.External.Models.AirportApi
     /// </summary>
     public sealed record AirportInfoData
     {
-        public string Country { get; init; }
+        public string Country { get; init; } = string.Empty;
 
         [JsonPropertyName("city_iata")]
-        public string CityIATA { get; init; }
+        public string CityIATA { get; init; } = string.Empty;
 
         public string IATA { get; init; }
 
-        public string City { get; init; }
+        public string City { get; init; } = string.Empty;
 
         [JsonPropertyName("timezone_region_name")]
-        public string TimezoneRegionName { get; init; }
+        public string TimezoneRegionName { get; init; } = string.Empty;
 
         [JsonPropertyName("country_iata")]
-        public string CountryIATA { get; init; }
+        public string CountryIATA { get; init; } = string.Empty;
 
         public int Rating { get; init; }
 
-        public string Name { get; init; }
+        public string Name { get; init; } = string.Empty;
 
         public Location Location { get; init; }
 
-        public string Type { get; init; }
+        public string Type { get; init; } = string.Empty;
 
         public int Hubs { get; init; }
     }

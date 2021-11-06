@@ -4,6 +4,7 @@ using AirportInfo.Grpc.Mapper;
 using AirportInfo.Grpc.Protos;
 using AirportInfo.Grpc.Services;
 using AutoMapper;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using Moq.Protected;
 using NUnit.Framework;
@@ -66,7 +67,14 @@ namespace AirportInfo.Tests.AirportInfoServiceTest
             var config = new MapperConfiguration(cfg => cfg.AddProfile<AirportInfoProfile>());
             Mapper = config.CreateMapper();
 
-            Api = new AirportInfoApi(httpClient);
+            var mockCache = new Mock<IMemoryCache>();
+            var mockCacheEntry = new Mock<ICacheEntry>();
+
+            mockCache
+                .Setup(mc => mc.CreateEntry(It.IsAny<object>()))
+                .Returns(mockCacheEntry.Object);
+
+            Api = new AirportInfoApi(httpClient, mockCache.Object);
 
             Service = new AirportInfoService(Mapper, Api);
         }

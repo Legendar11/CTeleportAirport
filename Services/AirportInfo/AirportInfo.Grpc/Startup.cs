@@ -35,6 +35,8 @@ namespace AirportInfo.Grpc
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddMemoryCache();
+
             services
                 .AddHttpClient<IAirportInfoApi, AirportInfoApi>("AirportApi", client =>
                 {
