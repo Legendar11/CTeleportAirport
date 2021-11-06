@@ -30,7 +30,7 @@ namespace AirportInfo.Grpc.External.Services.AirportInfoApi
             var content = await response.Content.ReadAsStringAsync();
 
             if (!response.IsSuccessStatusCode)
-                throw new Exception($"Error code {(int)response.StatusCode}, message: {content}");
+                throw new HttpRequestException($"Failed try download info about {codeByIATA}, reason: {content}", null, response.StatusCode);
 
             var model = JsonSerializer.Deserialize<AirportInfoData>(content, JsonSerializerOptions);
             return model;

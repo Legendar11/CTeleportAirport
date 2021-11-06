@@ -76,7 +76,6 @@ namespace AirportInfo.Grpc
 
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
                 .WaitAndRetryAsync(delay);
         }
     }

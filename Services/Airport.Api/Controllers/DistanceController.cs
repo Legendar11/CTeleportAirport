@@ -30,8 +30,8 @@ namespace Airport.Api.Controllers
         }
 
         [HttpGet("Between")]
-        [ProducesResponseType(typeof(DistanceBetweenTwoPointsModel), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<DistanceBetweenTwoPointsModel>> GetBetween([FromQuery] BetweenInputModel model)
+        [ProducesResponseType(typeof(BetweenOutputModel), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<BetweenOutputModel>> GetBetween([FromQuery] BetweenInputModel model)
         {
             var fromAirport = await _airportInfoGrpcService.GetAirportInfo(model.From);
             var toAirport = await _airportInfoGrpcService.GetAirportInfo(model.To);
@@ -39,8 +39,10 @@ namespace Airport.Api.Controllers
             var fromLocation = _mapper.Map<LocationModel>(fromAirport.Location);
             var toLocation = _mapper.Map<LocationModel>(toAirport.Location);
             var distance = await _measuringGrpcService.GetDistanceBetweenTwoPoints(fromLocation, toLocation, DistanceUnit.Mile);
-          
-            return Ok(distance);
+
+            var result = _mapper.Map<BetweenOutputModel>(distance);
+
+            return Ok(result);
         }
     }
 }

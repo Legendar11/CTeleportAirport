@@ -2,10 +2,9 @@
 using Grpc.Core.Interceptors;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AirportInfo.Grpc.Middlewares
+namespace Measuring.Grpc.Middlewares
 {
     public class ErrorHandlingMiddleware : Interceptor
     {
@@ -33,10 +32,6 @@ namespace AirportInfo.Grpc.Middlewares
                 {
                     { "inner_exception", ex.Message }
                 };
-                if (ex is HttpRequestException httpEx)
-                {
-                    metadata.Add("http_exception", ((int)httpEx.StatusCode).ToString());
-                }
 
                 throw new RpcException(new Status(StatusCode.Internal, ex.ToString()), metadata);
             }

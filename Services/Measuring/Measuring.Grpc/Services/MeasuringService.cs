@@ -13,13 +13,17 @@ namespace Measuring.Grpc.Services
         {
             // https://en.wikipedia.org/wiki/Haversine_formula
 
+            static void checkLocation(LocationModel model)
+            {
+                if (!model.IsCorrect())
+                    throw new ArgumentOutOfRangeException($"Location ({model.Latitude};{model.Longitude}) is not correct");
+            }
+
             var from = request.From;
             var to = request.To;
 
-            if (!from.IsCorrect() || !to.IsCorrect())
-            {
-                throw new ArgumentOutOfRangeException("One of locations is not correct");
-            }
+            checkLocation(from);
+            checkLocation(to);
 
             var result = new DistanceBetweenTwoPointsModel
             {
