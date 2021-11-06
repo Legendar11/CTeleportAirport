@@ -14,3 +14,4 @@ Example request: http://localhost:5000/distance/between?from=SCF&to=BGF
 Example: docker-compose -f .\docker-compose.yml -f .\docker-compose.override.yml up -d
 
 ## Architecture
+![architecture image](https://github.com/Legendar11/CTeleportAirport/blob/master/architecture.drawio.png)
